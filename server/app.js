@@ -30,10 +30,6 @@ app.get('/api/items', db.getItems);
 app.post('/api/items', db.addItem);
 app.delete('/api/items/:id', db.deleteItem);
 
-app.get('/api/getroles', (req, res) =>{
-
-})
-
 app.get('/api/getroles', (req, res) => {
   console.log('Got request');
   res.send({
