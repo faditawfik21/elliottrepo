@@ -30,7 +30,7 @@ app.get('/api/items', db.getItems);
 app.post('/api/items', db.addItem);
 app.delete('/api/items/:id', db.deleteItem);
 
-app.get('/api/getroles', (req, res) => {
+const getRoles = (req, res) =>{
   console.log('Got request');
   res.send({
     "roles": [
@@ -38,7 +38,10 @@ app.get('/api/getroles', (req, res) => {
       "Contributor"
     ]
   });
-})
+}
+
+app.get('/api/getroles', getRoles);
+app.post('/api/getroles', getRoles);
 
 app.listen(port, () => {
   console.log(`Test Example app listening on port ${port}`)
