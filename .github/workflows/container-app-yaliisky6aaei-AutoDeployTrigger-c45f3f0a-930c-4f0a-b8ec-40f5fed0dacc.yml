@@ -1,0 +1,47 @@
+name: Trigger auto deployment for container-app-yaliisky6aaei
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - 'server/**'
+    - '.github/workflows/container-app-yaliisky6aaei-AutoDeployTrigger-c45f3f0a-930c-4f0a-b8ec-40f5fed0dacc.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CONTAINERAPPYALIISKY6AAEI_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CONTAINERAPPYALIISKY6AAEI_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CONTAINERAPPYALIISKY6AAEI_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}/server 
+          registryUrl: containerregistryyaliisky6aaei.azurecr.io
+          registryUsername: ${{ secrets.CONTAINERAPPYALIISKY6AAEI_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CONTAINERAPPYALIISKY6AAEI_REGISTRY_PASSWORD }}
+          containerAppName: container-app-yaliisky6aaei
+          resourceGroup: todoba2a
+          imageToBuild: containerregistryyaliisky6aaei.azurecr.io/container-app-yaliisky6aaei:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
