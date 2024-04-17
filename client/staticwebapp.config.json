@@ -1,49 +1,27 @@
 {
-  "trailingSlash": "auto",
-  "routes": [
-    {
-      "route": "/api/*",
-      "methods": [
-        "GET"
-      ],
-      "allowedRoles": [
-        "authenticated"
-      ]
-    },
-    {
-      "route": "/otherApiPath/*",
-      "redirect": "/api/"
-    },
-    {
-      "route": "/api/*",
-      "methods": [
-        "PUT",
-        "POST",
-        "PATCH",
-        "DELETE"
-      ],
-      "allowedRoles": [
-        "contributor"
-      ]
-    },
-    {
-      "route": "/login",
-      "rewrite": "/.auth/login/github"
-    },
-    {
-      "route": "/logout",
-      "redirect": "/.auth/logout"
-    }
-  ],
-  "auth": {
-    "rolesSource": "/api/getroles",
-    "identityProviders": {
-      "github": {
-        "registration": {
-          "clientIdSettingName": "GITHUB_CLIENT_ID",
-          "clientSecretSettingName": "GITHUB_CLIENT_SECRET"
-        }
+    "trailingSlash": "auto",
+    "routes": [
+      {
+        "route": "/api/*",
+        "methods": ["GET"],
+        "allowedRoles": ["authenticated"]
+      },
+      {
+        "route": "/otherApiPath/*",
+        "redirect": "/api/"
+      },
+      {
+        "route": "/api/*",
+        "methods": ["PUT", "POST", "PATCH", "DELETE"],
+        "allowedRoles": ["contributor"]
+      },
+      {
+        "route": "/login",
+        "rewrite": "/.auth/login/github"
+      },
+      {
+        "route": "/logout",
+        "redirect": "/.auth/logout"
       }
-    }
+    ]
   }
-}
